@@ -6,6 +6,10 @@ import lombok.experimental.UtilityClass;
 public class Lab2Constant {
     public static final String SUITABLE_WORD_MESSAGE = "\"%s\" is a suitable word";
     public static final String NOT_SUITABLE_WORD_MESSAGE = "\"%s\" is not a suitable word";
+    public static final String STATE_HISTORY_MESSAGE = "\nHistory of states: [%s]";
+    public static final String STACK_ELEMENTS_MESSAGE = "\nStack elements: [%s]";
+    public static final String EMPTY_STACK_MESSAGE = "Stack is empty";
+    public static final String DIVIDER = ", ";
     public static final String ILLEGAL_STATE_MESSAGE = "Unexpected value: \"%s\"";
     public static final String VOID = "";
     public static final String ZERO = "0";
