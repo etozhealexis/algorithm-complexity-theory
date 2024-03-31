@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import ru.etozhealexis.algorithmcomplexitytheory.config.Lab1Config;
+import ru.etozhealexis.algorithmcomplexitytheory.constant.CommonConstant;
 import ru.etozhealexis.algorithmcomplexitytheory.constant.Lab1Constant;
 import ru.etozhealexis.algorithmcomplexitytheory.constant.enums.Lab1State;
 import ru.etozhealexis.algorithmcomplexitytheory.dto.Lab1DTO;
@@ -30,16 +31,16 @@ public class Lab1ServiceImpl implements Lab1Service {
                 case STATE_3 ->
                         lab1State = Lab1State.STATE_4;
                 default ->
-                        throw new IllegalStateException(String.format(Lab1Constant.ILLEGAL_STATE_MESSAGE, lab1State));
+                        throw new IllegalStateException(String.format(CommonConstant.ILLEGAL_STATE_MESSAGE, lab1State));
             }
             if (lab1State == Lab1State.STATE_4) {
                 break;
             }
         }
         if (lab1State == Lab1State.STATE_2 || lab1State == Lab1State.STATE_3) {
-            log.info(String.format(Lab1Constant.NOT_SUITABLE_WORD_MESSAGE, word));
+            log.info(String.format(CommonConstant.NOT_SUITABLE_WORD_MESSAGE, word));
         } else {
-            log.info(String.format(Lab1Constant.SUITABLE_WORD_MESSAGE, word));
+            log.info(String.format(CommonConstant.SUITABLE_WORD_MESSAGE, word));
         }
     }
 
@@ -48,9 +49,9 @@ public class Lab1ServiceImpl implements Lab1Service {
         String word = request.getWord();
         if ((word.length() == Lab1Constant.MIN_WRONG_WORD_LENGTH || word.length() == Lab1Constant.MAX_WRONG_WORD_LENGTH)
                 && lab1Config.getPattern().matcher(word).find()) {
-            log.error(String.format(Lab1Constant.NOT_SUITABLE_WORD_MESSAGE, word));
+            log.error(String.format(CommonConstant.NOT_SUITABLE_WORD_MESSAGE, word));
         } else {
-            log.info(String.format(Lab1Constant.SUITABLE_WORD_MESSAGE, word));
+            log.info(String.format(CommonConstant.SUITABLE_WORD_MESSAGE, word));
         }
     }
 

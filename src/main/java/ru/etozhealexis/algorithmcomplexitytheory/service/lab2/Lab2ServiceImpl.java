@@ -3,6 +3,7 @@ package ru.etozhealexis.algorithmcomplexitytheory.service.lab2;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import ru.etozhealexis.algorithmcomplexitytheory.constant.CommonConstant;
 import ru.etozhealexis.algorithmcomplexitytheory.constant.Lab2Constant;
 import ru.etozhealexis.algorithmcomplexitytheory.constant.enums.Lab2State;
 import ru.etozhealexis.algorithmcomplexitytheory.dto.Lab2DTO;
@@ -153,7 +154,7 @@ public class Lab2ServiceImpl implements Lab2Service {
                         yield Lab2State.STATE_8;
                     }
                 }
-                default -> throw new IllegalStateException(Lab2Constant.ILLEGAL_STATE_MESSAGE + lab2State);
+                default -> throw new IllegalStateException(CommonConstant.ILLEGAL_STATE_MESSAGE + lab2State);
             };
         }
 
@@ -180,9 +181,9 @@ public class Lab2ServiceImpl implements Lab2Service {
 
         if (lab2State.equals(Lab2State.STATE_8) || lab2State.equals(Lab2State.STATE_9) ||
                 lab2State.equals(Lab2State.STATE_4) || lab2State.equals(Lab2State.STATE_10)) {
-            log.info(String.format(Lab2Constant.SUITABLE_WORD_MESSAGE, word));
+            log.info(String.format(CommonConstant.SUITABLE_WORD_MESSAGE, word));
         } else {
-            log.info(String.format(Lab2Constant.NOT_SUITABLE_WORD_MESSAGE, word));
+            log.info(String.format(CommonConstant.NOT_SUITABLE_WORD_MESSAGE, word));
         }
 
         stack.clear();
@@ -194,9 +195,9 @@ public class Lab2ServiceImpl implements Lab2Service {
         int zeros = word.replace(Lab2Constant.ONE, Lab2Constant.VOID).length();
         int ones = word.replace(Lab2Constant.ZERO, Lab2Constant.VOID).length();
         if (zeros >= ones * 2) {
-            log.info(String.format(Lab2Constant.SUITABLE_WORD_MESSAGE, word));
+            log.info(String.format(CommonConstant.SUITABLE_WORD_MESSAGE, word));
         } else {
-            log.info(String.format(Lab2Constant.NOT_SUITABLE_WORD_MESSAGE, word));
+            log.info(String.format(CommonConstant.NOT_SUITABLE_WORD_MESSAGE, word));
         }
     }
 }

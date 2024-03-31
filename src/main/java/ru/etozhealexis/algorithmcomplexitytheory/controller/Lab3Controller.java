@@ -6,22 +6,22 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.etozhealexis.algorithmcomplexitytheory.constant.LabEndpoint;
-import ru.etozhealexis.algorithmcomplexitytheory.dto.Lab1DTO;
-import ru.etozhealexis.algorithmcomplexitytheory.service.lab1.Lab1Service;
+import ru.etozhealexis.algorithmcomplexitytheory.dto.Lab3DTO;
+import ru.etozhealexis.algorithmcomplexitytheory.service.lab3.Lab3Service;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(LabEndpoint.LAB_1)
-public class Lab1Controller {
-    private final Lab1Service lab1Service;
+@RequestMapping(LabEndpoint.LAB_3)
+public class Lab3Controller {
+    private final Lab3Service lab3Service;
 
     @GetMapping(LabEndpoint.STATE_MACHINE)
-    public void solveLab1WithStateMachine(@RequestBody Lab1DTO request) {
-        lab1Service.solveLab1WithStateMachine(request);
+    public void solveLab1WithStateMachine(@RequestBody Lab3DTO request) {
+        lab3Service.solveLab3WithStateMachine(request);
     }
 
     @GetMapping(LabEndpoint.REGEX)
-    public void solveLab1WithRegex(@RequestBody Lab1DTO request) {
-        lab1Service.solveLab1WithRegex(request);
+    public void solveLab1WithRegex(@RequestBody Lab3DTO request) {
+        lab3Service.solveLab3WithRegex(request);
     }
 }
