@@ -30,7 +30,9 @@ class Lab3ServiceTest {
 
     private static Stream<Arguments> provideStateSchemaArguments() {
         return Stream.of(
-                Arguments.of("3\n1 0 1\n1 1 2\n2 0 3\n2 1 2\n1")
+                Arguments.of("3\n1 0 1\n1 1 2\n2 0 2\n2 1 1\n1"),
+                Arguments.of("3\n1 0 1\n1 1 2\n2 1 2\n2 1 2\n2"),
+                Arguments.of("3\n1 0 1\n1 1 2\n2 0 2\n2 1 1\n1 2 3")
         );
     }
 }
