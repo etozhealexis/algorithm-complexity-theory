@@ -192,8 +192,8 @@ public class Lab2ServiceImpl implements Lab2Service {
     @Override
     public void solveLab2WithRegex(Lab2DTO request) {
         String word = request.getWord();
-        int zeros = word.replace(Lab2Constant.ONE, Lab2Constant.VOID).length();
-        int ones = word.replace(Lab2Constant.ZERO, Lab2Constant.VOID).length();
+        int zeros = word.replace(Lab2Constant.ONE, CommonConstant.VOID).length();
+        int ones = word.replace(Lab2Constant.ZERO, CommonConstant.VOID).length();
         if (zeros >= ones * 2) {
             log.info(String.format(CommonConstant.SUITABLE_WORD_MESSAGE, word));
         } else {

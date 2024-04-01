@@ -11,12 +11,7 @@ import ru.etozhealexis.algorithmcomplexitytheory.dto.Lab3DTO;
 public class Lab3ServiceMock implements Lab3Service {
 
     @Override
-    public void solveLab3WithStateMachine(Lab3DTO request) {
-        log.info("Solving...");
-    }
-
-    @Override
-    public void solveLab3WithRegex(Lab3DTO request) {
+    public void solveLab3(Lab3DTO request) {
         log.info("Solving...");
     }
 }

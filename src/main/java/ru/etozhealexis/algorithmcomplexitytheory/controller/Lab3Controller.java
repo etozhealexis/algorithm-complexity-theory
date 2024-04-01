@@ -15,13 +15,8 @@ import ru.etozhealexis.algorithmcomplexitytheory.service.lab3.Lab3Service;
 public class Lab3Controller {
     private final Lab3Service lab3Service;
 
-    @GetMapping(LabEndpoint.STATE_MACHINE)
-    public void solveLab1WithStateMachine(@RequestBody Lab3DTO request) {
-        lab3Service.solveLab3WithStateMachine(request);
-    }
-
-    @GetMapping(LabEndpoint.REGEX)
-    public void solveLab1WithRegex(@RequestBody Lab3DTO request) {
-        lab3Service.solveLab3WithRegex(request);
+    @GetMapping(LabEndpoint.SOLVE)
+    public void solveLab3(@RequestBody Lab3DTO request) {
+        lab3Service.solveLab3(request);
     }
 }

@@ -7,4 +7,5 @@ public interface LabEndpoint {
 
     String STATE_MACHINE = "/sm";
     String REGEX = "/regex";
+    String SOLVE = "/solve";
 }
