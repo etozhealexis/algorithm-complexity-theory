@@ -101,7 +101,9 @@ public class Lab3ServiceImpl implements Lab3Service {
         HashMap<Character, Character> currentStateInfo = graph.get(currentState);
 
         for (Map.Entry<Character, Character> entry : currentStateInfo.entrySet()) {
-            Lab3State nextState = Lab3State.builder().name(entry.getValue()).build();
+            Lab3State nextState = Lab3State.builder()
+                    .name(entry.getValue())
+                    .build();
             int nextOnesCount = nextState.getName().equals(Lab3Constant.ONE) ? onesCount + 1 : onesCount;
             if (visitedStates.contains(nextState)) {
                 continue;
