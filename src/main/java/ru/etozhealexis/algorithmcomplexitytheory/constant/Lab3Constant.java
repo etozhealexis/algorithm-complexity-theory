@@ -13,4 +13,5 @@ public class Lab3Constant {
     public static final char ONE = '1';
     public static final String VALID_DFA_MESSAGE = "Valid DFA";
     public static final String NOT_VALID_DFA_MESSAGE = "Invalid DFA";
+    public static final String CHECKING_DFA_STATE_MESSAGE = "Checking state %s";
 }

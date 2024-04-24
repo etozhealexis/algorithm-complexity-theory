@@ -14,13 +14,14 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 
 @Slf4j
 @RequiredArgsConstructor
 @Service
 public class Lab3ServiceImpl implements Lab3Service {
-    private Map<Lab3State, HashMap<Character, Character>> graph = new LinkedHashMap<>();
+    private final Map<Lab3State, HashMap<Character, Character>> graph = new LinkedHashMap<>();
 
     @Override
     public void solveLab3(Lab3DTO request) {
@@ -43,9 +44,9 @@ public class Lab3ServiceImpl implements Lab3Service {
         int onesCount = 0;
         Lab3State startState = getFirstState(graph);
         Set<Lab3State> visitedStates = new HashSet<>();
-        boolean isValidDKA = checkDKA(startState, graph, visitedStates, onesCount);
+        boolean isValidDFA = checkDFA(startState, graph, visitedStates, onesCount);
 
-        if (isValidDKA) {
+        if (isValidDFA) {
             log.info(Lab3Constant.VALID_DFA_MESSAGE);
         } else {
             log.info(Lab3Constant.NOT_VALID_DFA_MESSAGE);
@@ -92,34 +93,46 @@ public class Lab3ServiceImpl implements Lab3Service {
         return entry.getKey();
     }
 
-    private boolean checkDKA(Lab3State currentState, Map<Lab3State, HashMap<Character, Character>> graph, Set<Lab3State> visitedStates, int onesCount) {
+    private boolean checkDFA(Lab3State currentState,
+                             Map<Lab3State, HashMap<Character, Character>> graph,
+                             Set<Lab3State> visitedStates,
+                             int onesCount) {
+        log.info(String.format(Lab3Constant.CHECKING_DFA_STATE_MESSAGE, currentState));
         Lab3State.Lab3StateStatus currentStateStatus = currentState.getStatus();
-        if (currentStateStatus == Lab3State.Lab3StateStatus.ACCEPT && isOdd(onesCount)) {
-            return true;
+        if (currentStateStatus == Lab3State.Lab3StateStatus.ACCEPT && !isOdd(onesCount)) {
+            return false;
         }
 
         HashMap<Character, Character> currentStateInfo = graph.get(currentState);
 
         for (Map.Entry<Character, Character> entry : currentStateInfo.entrySet()) {
-            Lab3State nextState = Lab3State.builder()
-                    .name(entry.getValue())
-                    .build();
-            int nextOnesCount = nextState.getName().equals(Lab3Constant.ONE) ? onesCount + 1 : onesCount;
+            Lab3State nextState = getNextState(graph, entry);
+            int nextOnesCount = entry.getKey().equals(Lab3Constant.ONE) ? onesCount + 1 : onesCount;
             if (visitedStates.contains(nextState)) {
                 continue;
             }
             visitedStates.add(nextState);
-
-            if (checkDKA(nextState, graph, visitedStates, nextOnesCount)) {
-                return true;
+            if (!checkDFA(nextState, graph, visitedStates, nextOnesCount)) {
+                return false;
             }
             visitedStates.remove(nextState);
         }
 
-        return false;
+        return true;
     }
 
     private boolean isOdd(int onesCount) {
         return onesCount % 2 == 0;
+    }
+
+    private Lab3State getNextState(Map<Lab3State, HashMap<Character, Character>> graph, Map.Entry<Character, Character> entry) {
+        Optional<Lab3State> nextState = graph.keySet().stream()
+                .filter(key -> key.equals(Lab3State.builder()
+                        .name(entry.getValue()).build()))
+                .findFirst();
+        return Lab3State.builder()
+                .name(nextState.map(Lab3State::getName).orElse(null))
+                .status(nextState.map(Lab3State::getStatus).orElse(null))
+                .build();
     }
 }
