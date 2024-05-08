@@ -183,7 +183,7 @@ public class Lab2ServiceImpl implements Lab2Service {
                 lab2State.equals(Lab2State.STATE_4) || lab2State.equals(Lab2State.STATE_10)) {
             log.info(String.format(CommonConstant.SUITABLE_WORD_MESSAGE, word));
         } else {
-            log.info(String.format(CommonConstant.NOT_SUITABLE_WORD_MESSAGE, word));
+            log.error(String.format(CommonConstant.NOT_SUITABLE_WORD_MESSAGE, word));
         }
 
         stack.clear();
@@ -197,7 +197,7 @@ public class Lab2ServiceImpl implements Lab2Service {
         if (zeros >= ones * 2) {
             log.info(String.format(CommonConstant.SUITABLE_WORD_MESSAGE, word));
         } else {
-            log.info(String.format(CommonConstant.NOT_SUITABLE_WORD_MESSAGE, word));
+            log.error(String.format(CommonConstant.NOT_SUITABLE_WORD_MESSAGE, word));
         }
     }
 }

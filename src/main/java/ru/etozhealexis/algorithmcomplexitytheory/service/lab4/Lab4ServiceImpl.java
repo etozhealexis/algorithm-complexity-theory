@@ -38,13 +38,13 @@ public class Lab4ServiceImpl implements Lab4Service {
             log.info(String.format(Lab4Constant.SUITABLE_FORMULA_MESSAGE, formulaString));
         } else {
             if (!formulaIsEqualToCNF) {
-                log.info(String.format(Lab4Constant.NOT_IN_CNF_MESSAGE, formulaString));
+                log.error(String.format(Lab4Constant.NOT_IN_CNF_MESSAGE, formulaString));
             }
             if (!maxTwoDuplicatesOfEachVariable) {
-                log.info(Lab4Constant.TOO_MANY_DUPLICATES_MESSAGE);
+                log.error(Lab4Constant.TOO_MANY_DUPLICATES_MESSAGE);
             }
         }
-        log.info(String.format(Lab4Constant.TIME_EXECUTION_MESSAGE, executionTime));
+        log.info(String.format(CommonConstant.TIME_EXECUTION_MESSAGE, executionTime));
     }
 
     private void fillVariableToCount(String formulaVariablesWithDuplicates, HashMap<Character, Integer> variableToCount) {

@@ -49,7 +49,7 @@ public class Lab3ServiceImpl implements Lab3Service {
         if (isValidDFA) {
             log.info(Lab3Constant.VALID_DFA_MESSAGE);
         } else {
-            log.info(Lab3Constant.NOT_VALID_DFA_MESSAGE);
+            log.error(Lab3Constant.NOT_VALID_DFA_MESSAGE);
         }
 
         graph.clear();
