@@ -11,4 +11,10 @@ public interface LabEndpoint {
     String STATE_MACHINE = "/sm";
     String REGEX = "/regex";
     String SOLVE = "/solve";
+    String BOARD = "/board";
+    String CLEAR = "/clear";
+    String TURN = "/turn";
+    String CHECK_GAME_END = "/check-game-end";
+    String MAIN = "/main";
+    String REDIRECT = "/";
 }

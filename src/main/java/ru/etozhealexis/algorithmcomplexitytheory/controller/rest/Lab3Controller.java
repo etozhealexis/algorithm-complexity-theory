@@ -1,4 +1,4 @@
-package ru.etozhealexis.algorithmcomplexitytheory.controller;
+package ru.etozhealexis.algorithmcomplexitytheory.controller.rest;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
