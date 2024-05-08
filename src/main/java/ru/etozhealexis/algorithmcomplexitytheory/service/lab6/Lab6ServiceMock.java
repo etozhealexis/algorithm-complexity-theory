@@ -3,8 +3,8 @@ package ru.etozhealexis.algorithmcomplexitytheory.service.lab6;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
-import ru.etozhealexis.algorithmcomplexitytheory.dto.Lab6BoardDTO;
-import ru.etozhealexis.algorithmcomplexitytheory.dto.Lab6DTO;
+import ru.etozhealexis.algorithmcomplexitytheory.dto.lab6.BoardDTO;
+import ru.etozhealexis.algorithmcomplexitytheory.dto.LabInputDTO;
 
 @Slf4j
 @Profile("DEV")
@@ -12,13 +12,13 @@ import ru.etozhealexis.algorithmcomplexitytheory.dto.Lab6DTO;
 public class Lab6ServiceMock implements Lab6Service {
 
     @Override
-    public Lab6BoardDTO getBoard() {
+    public BoardDTO getBoard() {
         log.info("Getting board...");
         return null;
     }
 
     @Override
-    public Lab6BoardDTO makeTurn(Lab6DTO lab6DTO) {
+    public BoardDTO makeTurn(LabInputDTO lab6DTO) {
         log.info("Making turn...");
         return null;
     }

@@ -9,8 +9,10 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
-import ru.etozhealexis.algorithmcomplexitytheory.config.Lab1Config;
-import ru.etozhealexis.algorithmcomplexitytheory.dto.Lab1DTO;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import ru.etozhealexis.algorithmcomplexitytheory.config.LabConfig;
+import ru.etozhealexis.algorithmcomplexitytheory.dto.LabInputDTO;
 import ru.etozhealexis.algorithmcomplexitytheory.service.lab1.Lab1ServiceImpl;
 
 import java.util.regex.Pattern;
@@ -26,22 +28,23 @@ class Lab1ServiceTest {
     private Lab1ServiceImpl lab1Service;
 
     @Mock
-    private Lab1Config lab1Config;
+    @Qualifier("lab1Pattern")
+    private Pattern pattern;
 
     @ParameterizedTest
     @MethodSource("provideWordArguments")
     void checkStateMachineSolving(String word) {
-        lab1Service.solveLab1WithStateMachine(Lab1DTO.builder()
-                .word(word)
+        lab1Service.solveLab1WithStateMachine(LabInputDTO.builder()
+                .request(word)
                 .build());
     }
 
     @ParameterizedTest
     @MethodSource("provideWordArguments")
-    void checkRegexSolving(String word) {
-        when(lab1Config.getPattern()).thenReturn(Pattern.compile("1{2,3}"));
-        lab1Service.solveLab1WithRegex(Lab1DTO.builder()
-                .word(word)
+    void checkRegexSolving(String request) {
+        when(pattern.matcher(request)).thenReturn(Pattern.compile("1{2,3}").matcher(request));
+        lab1Service.solveLab1WithRegex(LabInputDTO.builder()
+                .request(request)
                 .build());
     }
 

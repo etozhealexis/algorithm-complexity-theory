@@ -1,9 +1,9 @@
 package ru.etozhealexis.algorithmcomplexitytheory.service.lab1;
 
-import ru.etozhealexis.algorithmcomplexitytheory.dto.Lab1DTO;
+import ru.etozhealexis.algorithmcomplexitytheory.dto.LabInputDTO;
 
 public interface Lab1Service {
-    void solveLab1WithStateMachine(Lab1DTO request);
+    String solveLab1WithStateMachine(LabInputDTO request);
 
-    void solveLab1WithRegex(Lab1DTO request);
+    String solveLab1WithRegex(LabInputDTO request);
 }

@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import ru.etozhealexis.algorithmcomplexitytheory.constant.CommonConstant;
 import ru.etozhealexis.algorithmcomplexitytheory.constant.Lab2Constant;
 import ru.etozhealexis.algorithmcomplexitytheory.constant.enums.Lab2State;
-import ru.etozhealexis.algorithmcomplexitytheory.dto.Lab2DTO;
+import ru.etozhealexis.algorithmcomplexitytheory.dto.LabInputDTO;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
@@ -18,8 +18,8 @@ public class Lab2ServiceImpl implements Lab2Service {
     private Deque<Character> stack = new ArrayDeque<>();
 
     @Override
-    public void solveLab2WithStateMachine(Lab2DTO request) {
-        String word = request.getWord();
+    public void solveLab2WithStateMachine(LabInputDTO request) {
+        String word = request.getRequest();
         Lab2State lab2State = Lab2State.INITIAL_STATE;
         StringBuilder stateHistory = new StringBuilder(Lab2State.INITIAL_STATE.getStateName()).append(Lab2Constant.DIVIDER);
 
@@ -190,8 +190,8 @@ public class Lab2ServiceImpl implements Lab2Service {
     }
 
     @Override
-    public void solveLab2WithRegex(Lab2DTO request) {
-        String word = request.getWord();
+    public void solveLab2WithRegex(LabInputDTO request) {
+        String word = request.getRequest();
         int zeros = word.replace(Lab2Constant.ONE, CommonConstant.VOID).length();
         int ones = word.replace(Lab2Constant.ZERO, CommonConstant.VOID).length();
         if (zeros >= ones * 2) {

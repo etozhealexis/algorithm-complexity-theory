@@ -1,4 +1,4 @@
-package ru.etozhealexis.algorithmcomplexitytheory.model;
+package ru.etozhealexis.algorithmcomplexitytheory.model.lab5;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,6 +11,6 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 @ToString
-public class Lab5SetElement {
+public class SetElement {
     private List<String> colors;
 }

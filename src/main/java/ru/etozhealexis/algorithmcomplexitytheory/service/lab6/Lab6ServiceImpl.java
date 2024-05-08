@@ -3,8 +3,10 @@ package ru.etozhealexis.algorithmcomplexitytheory.service.lab6;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import ru.etozhealexis.algorithmcomplexitytheory.dto.Lab6BoardDTO;
-import ru.etozhealexis.algorithmcomplexitytheory.dto.Lab6DTO;
+import ru.etozhealexis.algorithmcomplexitytheory.constant.CommonConstant;
+import ru.etozhealexis.algorithmcomplexitytheory.constant.Lab6Constant;
+import ru.etozhealexis.algorithmcomplexitytheory.dto.LabInputDTO;
+import ru.etozhealexis.algorithmcomplexitytheory.dto.lab6.BoardDTO;
 
 import java.util.InputMismatchException;
 
@@ -16,28 +18,28 @@ public class Lab6ServiceImpl implements Lab6Service {
     private int turnCount = 0;
 
     @Override
-    public Lab6BoardDTO getBoard() {
+    public BoardDTO getBoard() {
         if (board == null) {
-            board = new String[11];
-            for (int i = 0; i < 11; i++) {
+            board = new String[Lab6Constant.FIELD_SIZE];
+            for (int i = 0; i < Lab6Constant.FIELD_SIZE; i++) {
                 board[i] = String.valueOf(i + 1);
             }
-            board[0] = "X";
+            board[0] = Lab6Constant.CROSS;
         }
         log.info(boardToString());
-        return Lab6BoardDTO.builder()
+        return BoardDTO.builder()
                 .board(board)
                 .build();
     }
 
     @Override
-    public Lab6BoardDTO makeTurn(Lab6DTO lab6DTO) {
+    public BoardDTO makeTurn(LabInputDTO lab6DTO) {
         int fieldIndex = checkInputAndGetIfCorrect(lab6DTO);
         checkFieldEmptiness(fieldIndex);
-        board[fieldIndex - 1] = "O";
+        board[fieldIndex - 1] = Lab6Constant.NOUGHT;
         triggerComputerTurn(fieldIndex);
         log.info(boardToString());
-        return Lab6BoardDTO.builder()
+        return BoardDTO.builder()
                 .board(board)
                 .build();
     }
@@ -50,38 +52,35 @@ public class Lab6ServiceImpl implements Lab6Service {
 
     @Override
     public boolean checkGameEnd() {
-        for (int a = 0; a < 4; a++) {
-            String line = switch (a) {
+        for (int i = 0; i < Lab6Constant.POSSIBLE_WINS_COUNT; i++) {
+            String line = switch (i) {
                 case 0 -> board[0] + board[1] + board[2];
                 case 1 -> board[10] + board[0] + board[1];
                 case 2 -> board[0] + board[4] + board[8];
                 case 3 -> board[9] + board[0] + board[4];
-                default -> "";
+                default -> CommonConstant.VOID;
             };
-            if (line.equals("XXX")) {
+
+            if (line.equals(Lab6Constant.CROSS + Lab6Constant.CROSS + Lab6Constant.CROSS)) {
                 return true;
             }
         }
         return false;
     }
 
-    private int checkInputAndGetIfCorrect(Lab6DTO lab6DTO) {
+    private int checkInputAndGetIfCorrect(LabInputDTO lab6DTO) {
         int fieldIndex;
         try {
             fieldIndex = Integer.parseInt(lab6DTO.getRequest());
         } catch (NumberFormatException ex) {
-            String msg = "Incorrect input. Use integer values only";
-            log.error(msg);
-            throw new InputMismatchException(msg);
+            throw new InputMismatchException(Lab6Constant.INCORRECT_INPUT_MESSAGE);
         }
         return fieldIndex;
     }
 
     private void checkFieldEmptiness(int fieldIndex) {
         if (!board[fieldIndex - 1].equals(String.valueOf(fieldIndex))) {
-            String msg = "Field already taken";
-            log.error(msg);
-            throw new IllegalStateException(msg);
+            throw new IllegalStateException(Lab6Constant.FIELD_IS_TAKEN_MESSAGE);
         }
     }
 
@@ -89,22 +88,22 @@ public class Lab6ServiceImpl implements Lab6Service {
         switch (turnCount) {
             case 0:
                 if ((playerFieldIndex == 5) || (playerFieldIndex == 9) || (playerFieldIndex == 10)) {
-                    board[1] = "X";
+                    board[1] = Lab6Constant.CROSS;
                 } else {
-                    board[4] = "X";
+                    board[4] = Lab6Constant.CROSS;
                 }
                 turnCount++;
                 break;
             case 1:
-                if ((board[1].equals("X")) && (!board[2].equals("O"))) {
-                    board[2] = "X";
-                } else if ((board[1].equals("X")) && (!board[10].equals("O"))) {
-                    board[10] = "X";
+                if ((board[1].equals(Lab6Constant.CROSS)) && (!board[2].equals(Lab6Constant.NOUGHT))) {
+                    board[2] = Lab6Constant.CROSS;
+                } else if ((board[1].equals(Lab6Constant.CROSS)) && (!board[10].equals(Lab6Constant.NOUGHT))) {
+                    board[10] = Lab6Constant.CROSS;
                 }
-                if ((board[4].equals("X")) && (!board[8].equals("O"))) {
-                    board[8] = "X";
-                } else if ((board[4].equals("X")) && (!board[9].equals("O"))) {
-                    board[9] = "X";
+                if ((board[4].equals(Lab6Constant.CROSS)) && (!board[8].equals(Lab6Constant.NOUGHT))) {
+                    board[8] = Lab6Constant.CROSS;
+                } else if ((board[4].equals(Lab6Constant.CROSS)) && (!board[9].equals(Lab6Constant.NOUGHT))) {
+                    board[9] = Lab6Constant.CROSS;
                 }
                 turnCount++;
                 break;
@@ -113,6 +112,9 @@ public class Lab6ServiceImpl implements Lab6Service {
         }
     }
 
+    /**
+     * Магические константы оставил из-за лени, это же жопа
+     */
     private String boardToString() {
         StringBuilder sb = new StringBuilder();
         sb.append("\n")

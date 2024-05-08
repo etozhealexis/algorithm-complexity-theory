@@ -1,24 +1,30 @@
 package ru.etozhealexis.algorithmcomplexitytheory.service.lab1;
 
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
-import ru.etozhealexis.algorithmcomplexitytheory.config.Lab1Config;
 import ru.etozhealexis.algorithmcomplexitytheory.constant.CommonConstant;
 import ru.etozhealexis.algorithmcomplexitytheory.constant.Lab1Constant;
 import ru.etozhealexis.algorithmcomplexitytheory.constant.enums.Lab1State;
-import ru.etozhealexis.algorithmcomplexitytheory.dto.Lab1DTO;
+import ru.etozhealexis.algorithmcomplexitytheory.dto.LabInputDTO;
+
+import java.util.regex.Pattern;
 
 @Slf4j
-@RequiredArgsConstructor
 @Service
 public class Lab1ServiceImpl implements Lab1Service {
 
-    private final Lab1Config lab1Config;
+    private final Pattern pattern;
+
+    @Autowired
+    public Lab1ServiceImpl(@Qualifier("lab1Pattern") Pattern pattern) {
+        this.pattern = pattern;
+    }
 
     @Override
-    public void solveLab1WithStateMachine(Lab1DTO request) {
-        String word = request.getWord();
+    public String solveLab1WithStateMachine(LabInputDTO request) {
+        String word = request.getRequest();
         Lab1State lab1State = Lab1State.INITIAL_STATE;
         for (int i = 0; i < word.length(); i++) {
             switch (lab1State) {
@@ -37,22 +43,30 @@ public class Lab1ServiceImpl implements Lab1Service {
                 break;
             }
         }
+        String message;
         if (lab1State == Lab1State.STATE_2 || lab1State == Lab1State.STATE_3) {
-            log.info(String.format(CommonConstant.NOT_SUITABLE_WORD_MESSAGE, word));
+            message = String.format(CommonConstant.NOT_SUITABLE_WORD_MESSAGE, word);
+            log.error(message);
         } else {
-            log.info(String.format(CommonConstant.SUITABLE_WORD_MESSAGE, word));
+            message = String.format(CommonConstant.SUITABLE_WORD_MESSAGE, word);
+            log.info(message);
         }
+        return message;
     }
 
     @Override
-    public void solveLab1WithRegex(Lab1DTO request) {
-        String word = request.getWord();
+    public String solveLab1WithRegex(LabInputDTO request) {
+        String word = request.getRequest();
+        String message;
         if ((word.length() == Lab1Constant.MIN_WRONG_WORD_LENGTH || word.length() == Lab1Constant.MAX_WRONG_WORD_LENGTH)
-                && lab1Config.getPattern().matcher(word).find()) {
-            log.error(String.format(CommonConstant.NOT_SUITABLE_WORD_MESSAGE, word));
+                && pattern.matcher(word).find()) {
+            message = String.format(CommonConstant.NOT_SUITABLE_WORD_MESSAGE, word);
+            log.error(message);
         } else {
-            log.info(String.format(CommonConstant.SUITABLE_WORD_MESSAGE, word));
+            message = String.format(CommonConstant.SUITABLE_WORD_MESSAGE, word);
+            log.info(message);
         }
+        return message;
     }
 
     private Lab1State nextState(char currentLetter, Lab1State nextState) {

@@ -8,7 +8,7 @@ import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
-import ru.etozhealexis.algorithmcomplexitytheory.dto.Lab2DTO;
+import ru.etozhealexis.algorithmcomplexitytheory.dto.LabInputDTO;
 import ru.etozhealexis.algorithmcomplexitytheory.service.lab2.Lab2ServiceImpl;
 
 import java.util.stream.Stream;
@@ -22,17 +22,17 @@ class Lab2ServiceTest {
 
     @ParameterizedTest
     @MethodSource("provideWordArguments")
-    void checkStateMachineSolving(String word) {
-        lab2Service.solveLab2WithStateMachine(Lab2DTO.builder()
-                .word(word)
+    void checkStateMachineSolving(String request) {
+        lab2Service.solveLab2WithStateMachine(LabInputDTO.builder()
+                .request(request)
                 .build());
     }
 
     @ParameterizedTest
     @MethodSource("provideWordArguments")
     void checkRegexSolving(String word) {
-        lab2Service.solveLab2WithRegex(Lab2DTO.builder()
-                .word(word)
+        lab2Service.solveLab2WithRegex(LabInputDTO.builder()
+                .request(word)
                 .build());
     }
 

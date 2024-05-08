@@ -4,8 +4,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import ru.etozhealexis.algorithmcomplexitytheory.constant.Lab3Constant;
-import ru.etozhealexis.algorithmcomplexitytheory.dto.Lab3DTO;
-import ru.etozhealexis.algorithmcomplexitytheory.model.Lab3State;
+import ru.etozhealexis.algorithmcomplexitytheory.dto.LabInputDTO;
+import ru.etozhealexis.algorithmcomplexitytheory.model.lab3.State;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -21,11 +21,11 @@ import java.util.Set;
 @RequiredArgsConstructor
 @Service
 public class Lab3ServiceImpl implements Lab3Service {
-    private final Map<Lab3State, HashMap<Character, Character>> graph = new LinkedHashMap<>();
+    private final Map<State, HashMap<Character, Character>> graph = new LinkedHashMap<>();
 
     @Override
-    public void solveLab3(Lab3DTO request) {
-        String stateSchema = request.getStateSchema();
+    public void solveLab3(LabInputDTO request) {
+        String stateSchema = request.getRequest();
         if (stateSchema.length() == Lab3Constant.NO_STATES_LENGTH) {
             log.info(Lab3Constant.VALID_DFA_MESSAGE);
             return;
@@ -42,8 +42,8 @@ public class Lab3ServiceImpl implements Lab3Service {
         log.info(String.valueOf(graph));
 
         int onesCount = 0;
-        Lab3State startState = getFirstState(graph);
-        Set<Lab3State> visitedStates = new HashSet<>();
+        State startState = getFirstState(graph);
+        Set<State> visitedStates = new HashSet<>();
         boolean isValidDFA = checkDFA(startState, graph, visitedStates, onesCount);
 
         if (isValidDFA) {
@@ -58,16 +58,16 @@ public class Lab3ServiceImpl implements Lab3Service {
     private void buildGraph(List<String> stateStrings, String dopStates) {
         stateStrings.forEach(
                 state -> {
-                    Lab3State currentState;
+                    State currentState;
                     if (dopStates.contains(String.valueOf(state.charAt(Lab3Constant.CURRENT_STATE_POSITION)))) {
-                        currentState = Lab3State.builder()
+                        currentState = State.builder()
                                 .name(state.charAt(Lab3Constant.CURRENT_STATE_POSITION))
-                                .status(Lab3State.Lab3StateStatus.ACCEPT)
+                                .status(State.Lab3StateStatus.ACCEPT)
                                 .build();
                     } else {
-                        currentState = Lab3State.builder()
+                        currentState = State.builder()
                                 .name(state.charAt(Lab3Constant.CURRENT_STATE_POSITION))
-                                .status(Lab3State.Lab3StateStatus.DENY)
+                                .status(State.Lab3StateStatus.DENY)
                                 .build();
                     }
                     if (graph.get(currentState) != null) {
@@ -88,25 +88,25 @@ public class Lab3ServiceImpl implements Lab3Service {
         );
     }
 
-    private Lab3State getFirstState(Map<Lab3State, HashMap<Character, Character>> graph) {
-        Map.Entry<Lab3State, HashMap<Character, Character>> entry = graph.entrySet().iterator().next();
+    private State getFirstState(Map<State, HashMap<Character, Character>> graph) {
+        Map.Entry<State, HashMap<Character, Character>> entry = graph.entrySet().iterator().next();
         return entry.getKey();
     }
 
-    private boolean checkDFA(Lab3State currentState,
-                             Map<Lab3State, HashMap<Character, Character>> graph,
-                             Set<Lab3State> visitedStates,
+    private boolean checkDFA(State currentState,
+                             Map<State, HashMap<Character, Character>> graph,
+                             Set<State> visitedStates,
                              int onesCount) {
         log.info(String.format(Lab3Constant.CHECKING_DFA_STATE_MESSAGE, currentState));
-        Lab3State.Lab3StateStatus currentStateStatus = currentState.getStatus();
-        if (currentStateStatus == Lab3State.Lab3StateStatus.ACCEPT && !isOdd(onesCount)) {
+        State.Lab3StateStatus currentStateStatus = currentState.getStatus();
+        if (currentStateStatus == State.Lab3StateStatus.ACCEPT && !isOdd(onesCount)) {
             return false;
         }
 
         HashMap<Character, Character> currentStateInfo = graph.get(currentState);
 
         for (Map.Entry<Character, Character> entry : currentStateInfo.entrySet()) {
-            Lab3State nextState = getNextState(graph, entry);
+            State nextState = getNextState(graph, entry);
             int nextOnesCount = entry.getKey().equals(Lab3Constant.ONE) ? onesCount + 1 : onesCount;
             if (visitedStates.contains(nextState)) {
                 continue;
@@ -125,14 +125,14 @@ public class Lab3ServiceImpl implements Lab3Service {
         return onesCount % 2 == 0;
     }
 
-    private Lab3State getNextState(Map<Lab3State, HashMap<Character, Character>> graph, Map.Entry<Character, Character> entry) {
-        Optional<Lab3State> nextState = graph.keySet().stream()
-                .filter(key -> key.equals(Lab3State.builder()
+    private State getNextState(Map<State, HashMap<Character, Character>> graph, Map.Entry<Character, Character> entry) {
+        Optional<State> nextState = graph.keySet().stream()
+                .filter(key -> key.equals(State.builder()
                         .name(entry.getValue()).build()))
                 .findFirst();
-        return Lab3State.builder()
-                .name(nextState.map(Lab3State::getName).orElse(null))
-                .status(nextState.map(Lab3State::getStatus).orElse(null))
+        return State.builder()
+                .name(nextState.map(State::getName).orElse(null))
+                .status(nextState.map(State::getStatus).orElse(null))
                 .build();
     }
 }

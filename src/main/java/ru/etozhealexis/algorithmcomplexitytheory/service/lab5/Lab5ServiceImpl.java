@@ -1,12 +1,13 @@
 package ru.etozhealexis.algorithmcomplexitytheory.service.lab5;
 
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import ru.etozhealexis.algorithmcomplexitytheory.constant.CommonConstant;
 import ru.etozhealexis.algorithmcomplexitytheory.constant.Lab5Constant;
-import ru.etozhealexis.algorithmcomplexitytheory.dto.Lab5DTO;
-import ru.etozhealexis.algorithmcomplexitytheory.model.Lab5SetElement;
+import ru.etozhealexis.algorithmcomplexitytheory.dto.LabInputDTO;
+import ru.etozhealexis.algorithmcomplexitytheory.model.lab5.SetElement;
 
 import java.util.Arrays;
 import java.util.LinkedHashSet;
@@ -16,13 +17,20 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @Slf4j
-@RequiredArgsConstructor
 @Service
 public class Lab5ServiceImpl implements Lab5Service {
-    private final Set<Lab5SetElement> set = new LinkedHashSet<>();
+
+    private final Pattern pattern;
+    private final Set<SetElement> set;
+
+    @Autowired
+    public Lab5ServiceImpl(@Qualifier("lab5Pattern") Pattern pattern) {
+        this.pattern = pattern;
+        this.set = new LinkedHashSet<>();
+    }
 
     @Override
-    public void solveLab5(Lab5DTO request) {
+    public void solveLab5(LabInputDTO request) {
         String setString = request.getRequest();
         long start = System.currentTimeMillis();
         try {
@@ -41,7 +49,6 @@ public class Lab5ServiceImpl implements Lab5Service {
     }
 
     private void fillSet(String setString) {
-        Pattern pattern = Pattern.compile(Lab5Constant.SET_ELEMENT_PATTERN);
         Matcher matcher = pattern.matcher(setString);
         while (matcher.find()) {
             String element = matcher.group();
@@ -50,7 +57,7 @@ public class Lab5ServiceImpl implements Lab5Service {
             if (colors.get(Lab5Constant.FIRST_ELEMENT_INDEX).equals(colors.get(Lab5Constant.SECOND_ELEMENT_INDEX))) {
                 throw new IllegalStateException(Lab5Constant.SAME_COLORS_MESSAGE);
             }
-            Lab5SetElement setElement = Lab5SetElement.builder()
+            SetElement setElement = SetElement.builder()
                     .colors(colors)
                     .build();
             if (set.contains(setElement)) {

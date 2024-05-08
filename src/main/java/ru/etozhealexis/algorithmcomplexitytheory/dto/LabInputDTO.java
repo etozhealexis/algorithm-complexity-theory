@@ -9,6 +9,6 @@ import lombok.RequiredArgsConstructor;
 @Builder
 @RequiredArgsConstructor
 @AllArgsConstructor
-public class Lab3DTO {
-    private String stateSchema;
+public class LabInputDTO {
+    private String request;
 }

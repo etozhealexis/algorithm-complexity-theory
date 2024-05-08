@@ -8,7 +8,7 @@ import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
-import ru.etozhealexis.algorithmcomplexitytheory.dto.Lab4DTO;
+import ru.etozhealexis.algorithmcomplexitytheory.dto.LabInputDTO;
 import ru.etozhealexis.algorithmcomplexitytheory.service.lab4.Lab4ServiceImpl;
 
 import java.util.stream.Stream;
@@ -21,14 +21,14 @@ class Lab4ServiceTest {
     private Lab4ServiceImpl lab4Service;
 
     @ParameterizedTest
-    @MethodSource("provideStateSchemaArguments")
-    void checkSolving(String formula) {
-        lab4Service.solveLab4(Lab4DTO.builder()
-                .request(formula)
+    @MethodSource("provideFormulaArguments")
+    void checkSolving(String request) {
+        lab4Service.solveLab4(LabInputDTO.builder()
+                .request(request)
                 .build());
     }
 
-    private static Stream<Arguments> provideStateSchemaArguments() {
+    private static Stream<Arguments> provideFormulaArguments() {
         return Stream.of(
                 Arguments.of("((a | c) & (b | c) & (a | !d) & (b | !d))"),
                 Arguments.of("(!(b | c))"),

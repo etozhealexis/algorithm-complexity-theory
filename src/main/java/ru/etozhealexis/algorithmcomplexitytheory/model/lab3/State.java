@@ -1,4 +1,4 @@
-package ru.etozhealexis.algorithmcomplexitytheory.model;
+package ru.etozhealexis.algorithmcomplexitytheory.model.lab3;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,7 +11,7 @@ import lombok.ToString;
 @EqualsAndHashCode(exclude = "status")
 @Getter
 @ToString
-public final class Lab3State {
+public final class State {
     private final Character name;
     private final Lab3StateStatus status;
 

@@ -42,8 +42,8 @@ function makeTurn(filedIndex) {
             alert("Field is already taken")
         }
     })
-    sleep(250).then(checkGameEnd)
-    // checkGameEnd();
+    sleep(2);
+    checkGameEnd();
 }
 
 function checkGameEnd() {
@@ -55,7 +55,7 @@ function checkGameEnd() {
         success: function (data) {
             let gameEnd = data;
             if (gameEnd === true) {
-                alert("Computer has won. Don't try again")
+                alert("Computer has won. try again")
                 clearBoard()
             }
         },

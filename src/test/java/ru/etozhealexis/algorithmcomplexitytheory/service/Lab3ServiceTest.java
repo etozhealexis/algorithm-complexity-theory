@@ -8,7 +8,7 @@ import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
-import ru.etozhealexis.algorithmcomplexitytheory.dto.Lab3DTO;
+import ru.etozhealexis.algorithmcomplexitytheory.dto.LabInputDTO;
 import ru.etozhealexis.algorithmcomplexitytheory.service.lab3.Lab3ServiceImpl;
 
 import java.util.stream.Stream;
@@ -22,9 +22,9 @@ class Lab3ServiceTest {
 
     @ParameterizedTest
     @MethodSource("provideStateSchemaArguments")
-    void checkSolving(String stateSchema) {
-        lab3Service.solveLab3(Lab3DTO.builder()
-                .stateSchema(stateSchema)
+    void checkSolving(String request) {
+        lab3Service.solveLab3(LabInputDTO.builder()
+                .request(request)
                 .build());
     }
 

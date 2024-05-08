@@ -1,4 +1,4 @@
-package ru.etozhealexis.algorithmcomplexitytheory.dto;
+package ru.etozhealexis.algorithmcomplexitytheory.dto.lab6;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,6 +9,6 @@ import lombok.RequiredArgsConstructor;
 @Builder
 @RequiredArgsConstructor
 @AllArgsConstructor
-public class Lab5DTO {
-    private String request;
+public class BoardDTO {
+    private String[] board;
 }

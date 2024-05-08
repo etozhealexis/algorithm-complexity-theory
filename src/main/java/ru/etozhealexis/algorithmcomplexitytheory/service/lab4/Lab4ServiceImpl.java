@@ -8,7 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import ru.etozhealexis.algorithmcomplexitytheory.constant.CommonConstant;
 import ru.etozhealexis.algorithmcomplexitytheory.constant.Lab4Constant;
-import ru.etozhealexis.algorithmcomplexitytheory.dto.Lab4DTO;
+import ru.etozhealexis.algorithmcomplexitytheory.dto.LabInputDTO;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -19,7 +19,7 @@ import java.util.HashMap;
 public class Lab4ServiceImpl implements Lab4Service {
 
     @Override
-    public void solveLab4(Lab4DTO request) {
+    public void solveLab4(LabInputDTO request) {
         String formulaString = request.getRequest();
 
         long executionStart = System.currentTimeMillis();
