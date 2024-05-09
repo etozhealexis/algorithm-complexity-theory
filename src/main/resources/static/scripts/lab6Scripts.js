@@ -1,6 +1,6 @@
-$(document).ready(function () {
+window.onload = function () {
     getBoard();
-})
+}
 
 function getBoard() {
     $.ajax({
@@ -43,7 +43,6 @@ function makeTurn(filedIndex) {
         }
     })
     sleep(250).then(checkGameEnd)
-    // checkGameEnd();
 }
 
 function checkGameEnd() {

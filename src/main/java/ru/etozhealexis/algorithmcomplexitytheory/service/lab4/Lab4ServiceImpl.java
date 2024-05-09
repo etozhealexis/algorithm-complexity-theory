@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import ru.etozhealexis.algorithmcomplexitytheory.constant.CommonConstant;
 import ru.etozhealexis.algorithmcomplexitytheory.constant.Lab4Constant;
 import ru.etozhealexis.algorithmcomplexitytheory.dto.LabInputDTO;
+import ru.etozhealexis.algorithmcomplexitytheory.dto.lab4.OutputDTO;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -19,7 +20,7 @@ import java.util.HashMap;
 public class Lab4ServiceImpl implements Lab4Service {
 
     @Override
-    public void solveLab4(LabInputDTO request) {
+    public OutputDTO solveLab4(LabInputDTO request) {
         String formulaString = request.getRequest();
 
         long executionStart = System.currentTimeMillis();
@@ -34,17 +35,27 @@ public class Lab4ServiceImpl implements Lab4Service {
 
         boolean formulaIsEqualToCNF = formula.toString().equals(cnf.toString());
         boolean maxTwoDuplicatesOfEachVariable = maxTwoDuplicatesOfEachVariable(variableToCount.values());
+        String message = "";
         if (formulaIsEqualToCNF && maxTwoDuplicatesOfEachVariable) {
-            log.info(String.format(Lab4Constant.SUITABLE_FORMULA_MESSAGE, formulaString));
+            message = String.format(Lab4Constant.SUITABLE_FORMULA_MESSAGE, formulaString);
+            log.info(message);
         } else {
             if (!formulaIsEqualToCNF) {
-                log.error(String.format(Lab4Constant.NOT_IN_CNF_MESSAGE, formulaString));
+                message = String.format(Lab4Constant.NOT_IN_CNF_MESSAGE, formulaString);
+                log.error(message);
             }
             if (!maxTwoDuplicatesOfEachVariable) {
-                log.error(Lab4Constant.TOO_MANY_DUPLICATES_MESSAGE);
+                message = Lab4Constant.TOO_MANY_DUPLICATES_MESSAGE;
+                log.error(message);
             }
         }
-        log.info(String.format(CommonConstant.TIME_EXECUTION_MESSAGE, executionTime));
+        String timeExecutionMessage = String.format(CommonConstant.TIME_EXECUTION_MESSAGE, executionTime);
+        log.info(timeExecutionMessage);
+
+        return OutputDTO.builder()
+                .message(message)
+                .timeExecutionMessage(timeExecutionMessage)
+                .build();
     }
 
     private void fillVariableToCount(String formulaVariablesWithDuplicates, HashMap<Character, Integer> variableToCount) {

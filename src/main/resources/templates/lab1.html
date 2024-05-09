@@ -48,31 +48,36 @@
     </div>
 </nav>
 
-<div class="container">
-    <form class="row g-3 needs-validation" novalidate>
-        <div class="col-md-4">
-            <label for="smInput" class="form-label">State Machine Solving</label>
-            <input type="text" class="form-control" id="smInput" value="101" required>
-            <div class="valid-feedback" id="smOutput">
-                Looks good!
+<!--toDo: change style-->
+<div class="row">
+    <div class="col"></div>
+    <div class="col">
+        <form class="row g-3 needs-validation" novalidate>
+            <div class="col-md-4">
+                <label for="smInput" class="form-label">State Machine</label>
+                <input type="text" class="form-control" id="smInput" value="101" required>
+                <div id="smOutput">
+                </div>
             </div>
-        </div>
-        <div class="col-12">
-            <button class="btn btn-primary" type="button" onclick="checkStateMachineSolving()">Check word</button>
-        </div>
-    </form>
-    <form class="row g-3 needs-validation" novalidate>
-        <div class="col-md-4">
-            <label for="regexInput" class="form-label">Regex Solving</label>
-            <input type="text" class="form-control" id="regexInput" value="110" required>
-            <div class="valid-feedback" id="regexOutput">
-                Looks good!
+            <div class="col-12">
+                <button class="btn btn-primary" type="button" onclick="checkStateMachineSolving()">Check word</button>
             </div>
-        </div>
-        <div class="col-12">
-            <button class="btn btn-primary" type="button" onclick="checkStateMachineSolving()">Check word</button>
-        </div>
-    </form>
+        </form>
+    </div>
+    <div class="col">
+        <form class="row g-3 needs-validation" novalidate>
+            <div class="col-md-4">
+                <label for="regexInput" class="form-label">Regex</label>
+                <input type="text" class="form-control" id="regexInput" value="110" required>
+                <div id="regexOutput">
+                </div>
+            </div>
+            <div class="col-12">
+                <button class="btn btn-primary" type="button" onclick="checkRegexSolving()">Check word</button>
+            </div>
+        </form>
+    </div>
+    <div class="col"></div>
 </div>
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"
         integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>

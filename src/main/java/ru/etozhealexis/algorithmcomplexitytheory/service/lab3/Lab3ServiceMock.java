@@ -11,7 +11,13 @@ import ru.etozhealexis.algorithmcomplexitytheory.dto.LabInputDTO;
 public class Lab3ServiceMock implements Lab3Service {
 
     @Override
-    public void solveLab3(LabInputDTO request) {
+    public String solveLab3(LabInputDTO request) {
         log.info("Solving...");
+        return null;
+    }
+
+    @Override
+    public void clearGraph() {
+        log.info("Clearing...");
     }
 }

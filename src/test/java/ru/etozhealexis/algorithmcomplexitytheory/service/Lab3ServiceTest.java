@@ -26,13 +26,15 @@ class Lab3ServiceTest {
         lab3Service.solveLab3(LabInputDTO.builder()
                 .request(request)
                 .build());
+        lab3Service.clearGraph();
     }
 
     private static Stream<Arguments> provideStateSchemaArguments() {
         return Stream.of(
-                Arguments.of("3\n1 0 1\n1 1 2\n2 0 2\n2 1 1\n1"),
-                Arguments.of("3\n1 0 1\n1 1 2\n2 1 2\n2 1 2\n2"),
-                Arguments.of("3\n1 0 1\n1 1 2\n2 0 2\n2 1 1\n1 2 3")
+                Arguments.of("3n1 0 1n1 1 2n2 0 2n2 1 1n1"),
+                Arguments.of("3n1 0 1n1 1 2n2 1 2n2 1 2n2"),
+                Arguments.of("3n1 0 1n1 1 2n2 0 2n2 1 1n1 2 3"),
+                Arguments.of("4n1 0 4n1 1 2n2 0 4n2 1 3n3 0 4n3 1 4n4 0 4n4 1 4n3")
         );
     }
 }

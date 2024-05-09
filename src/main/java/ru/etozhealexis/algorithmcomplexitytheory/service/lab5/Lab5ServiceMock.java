@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 import ru.etozhealexis.algorithmcomplexitytheory.dto.LabInputDTO;
+import ru.etozhealexis.algorithmcomplexitytheory.dto.lab5.OutputDTO;
 
 @Slf4j
 @Profile("DEV")
@@ -11,7 +12,13 @@ import ru.etozhealexis.algorithmcomplexitytheory.dto.LabInputDTO;
 public class Lab5ServiceMock implements Lab5Service {
 
     @Override
-    public void solveLab5(LabInputDTO request) {
+    public OutputDTO solveLab5(LabInputDTO request) {
         log.info("Solving...");
+        return null;
+    }
+
+    @Override
+    public void clearSet() {
+        log.info("Clearing...");
     }
 }

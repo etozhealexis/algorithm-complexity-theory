@@ -4,7 +4,7 @@ import lombok.experimental.UtilityClass;
 
 @UtilityClass
 public class Lab3Constant {
-    public static final String ENTER = "\n";
+    public static final String ENTER = "n";
     public static final int NO_STATES_LENGTH = 1;
     public static final int STATE_STRING_LENGTH = 5;
     public static final int CURRENT_STATE_POSITION = 0;

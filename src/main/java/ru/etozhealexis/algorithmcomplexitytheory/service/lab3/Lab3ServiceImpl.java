@@ -24,14 +24,17 @@ public class Lab3ServiceImpl implements Lab3Service {
     private final Map<State, HashMap<Character, Character>> graph = new LinkedHashMap<>();
 
     @Override
-    public void solveLab3(LabInputDTO request) {
+    public String solveLab3(LabInputDTO request) {
         String stateSchema = request.getRequest();
+        String message;
         if (stateSchema.length() == Lab3Constant.NO_STATES_LENGTH) {
-            log.info(Lab3Constant.VALID_DFA_MESSAGE);
-            return;
+            message = Lab3Constant.VALID_DFA_MESSAGE;
+            log.info(message);
+            return message;
         }
 
         List<String> strings = new LinkedList<>(Arrays.asList(stateSchema.split(Lab3Constant.ENTER)));
+        strings.forEach(log::info);
         String dopStates = strings.get(strings.size() - 1);
         strings.remove(strings.size() - 1);
         List<String> stateStrings = strings.stream()
@@ -40,18 +43,25 @@ public class Lab3ServiceImpl implements Lab3Service {
 
         buildGraph(stateStrings, dopStates);
         log.info(String.valueOf(graph));
-
+        //  4\n1 0 4\n1 1 2\n2 0 4\n2 1 3\n3 0 4\n3 1 4\n4 0 4\n4 1 4\n3
         int onesCount = 0;
         State startState = getFirstState(graph);
         Set<State> visitedStates = new HashSet<>();
         boolean isValidDFA = checkDFA(startState, graph, visitedStates, onesCount);
 
         if (isValidDFA) {
-            log.info(Lab3Constant.VALID_DFA_MESSAGE);
+            message = Lab3Constant.VALID_DFA_MESSAGE;
+            log.info(message);
         } else {
-            log.error(Lab3Constant.NOT_VALID_DFA_MESSAGE);
+            message = Lab3Constant.NOT_VALID_DFA_MESSAGE;
+            log.error(message);
         }
 
+        return message;
+    }
+
+    @Override
+    public void clearGraph() {
         graph.clear();
     }
 

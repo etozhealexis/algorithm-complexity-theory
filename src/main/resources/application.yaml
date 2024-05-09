@@ -1,0 +1,14 @@
+#server:
+#  servlet:
+#    encoding:
+#      charset: UTF-8
+#
+#  tomcat:
+#    relaxed-query-chars: '[,],|,{,},^,\,`,<,>'
+#    relaxed-path-chars: '[,],|'
+#logging:
+#  level:
+#    org:
+#      springframework:
+#        web: TRACE
+#      apache: TRACE

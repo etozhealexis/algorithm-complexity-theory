@@ -26,6 +26,7 @@ class Lab2ServiceTest {
         lab2Service.solveLab2WithStateMachine(LabInputDTO.builder()
                 .request(request)
                 .build());
+        lab2Service.clearStack();
     }
 
     @ParameterizedTest

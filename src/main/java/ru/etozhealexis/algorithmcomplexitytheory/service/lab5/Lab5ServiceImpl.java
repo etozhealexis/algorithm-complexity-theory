@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import ru.etozhealexis.algorithmcomplexitytheory.constant.CommonConstant;
 import ru.etozhealexis.algorithmcomplexitytheory.constant.Lab5Constant;
 import ru.etozhealexis.algorithmcomplexitytheory.dto.LabInputDTO;
+import ru.etozhealexis.algorithmcomplexitytheory.dto.lab5.OutputDTO;
 import ru.etozhealexis.algorithmcomplexitytheory.model.lab5.SetElement;
 
 import java.util.Arrays;
@@ -30,21 +31,34 @@ public class Lab5ServiceImpl implements Lab5Service {
     }
 
     @Override
-    public void solveLab5(LabInputDTO request) {
+    public OutputDTO solveLab5(LabInputDTO request) {
         String setString = request.getRequest();
         long start = System.currentTimeMillis();
+        String message;
         try {
             fillSet(setString);
             if (set.isEmpty()) {
-                log.error(String.format(Lab5Constant.VERIFICATION_FAILED_MESSAGE, Lab5Constant.EMPTY_SET_MESSAGE));
+                message = String.format(Lab5Constant.VERIFICATION_FAILED_MESSAGE, Lab5Constant.EMPTY_SET_MESSAGE);
+                log.error(message);
             } else {
-                log.info(Lab5Constant.VERIFICATION_PASSED_MESSAGE);
+                message = Lab5Constant.VERIFICATION_PASSED_MESSAGE;
+                log.info(message);
             }
         } catch (IllegalStateException exception) {
-            log.error(String.format(Lab5Constant.VERIFICATION_FAILED_MESSAGE, exception.getMessage()));
+            message = String.format(Lab5Constant.VERIFICATION_FAILED_MESSAGE, exception.getMessage());
+            log.error(message);
         }
         long end = System.currentTimeMillis();
-        log.info(String.format(CommonConstant.TIME_EXECUTION_MESSAGE, end - start));
+        String timeExecutionMessage = String.format(CommonConstant.TIME_EXECUTION_MESSAGE, end - start);
+        log.info(timeExecutionMessage);
+        return OutputDTO.builder()
+                .message(message)
+                .timeExecutionMessage(timeExecutionMessage)
+                .build();
+    }
+
+    @Override
+    public void clearSet() {
         set.clear();
     }
 

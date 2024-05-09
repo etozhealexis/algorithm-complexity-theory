@@ -1,63 +1,19 @@
-$(document).ready(function () {
-    getBoard();
-})
-
-function getBoard() {
-    $.ajax({
-        type: "GET",
-        url: "./lab6/board",
-        contentType: "application/json; charset=utf8",
-        async: false,
-        success: function (data) {
-            let board = data.board;
-            for (let i = 0; i < 11; i++) {
-                element = '#' + (i + 1);
-                $(element).html(board[i]);
-            }
-        },
-        error: function () {
-            console.log("Something went wrong!");
-        }
-    })
-}
-
-function makeTurn(filedIndex) {
-    let turn = {
-        request: filedIndex
+function checkStateMachineSolving() {
+    let word = document.getElementById("smInput").value.trim()
+    let rq = {
+        request: word
     }
     $.ajax({
         type: "POST",
-        url: "./lab6/turn",
+        url: "./lab2/sm",
         contentType: "application/json; charset=utf8",
         async: false,
-        data: JSON.stringify(turn),
+        data: JSON.stringify(rq),
         success: function (data) {
-            let board = data.board;
-            for (let i = 0; i < 11; i++) {
-                element = '#' + (i + 1);
-                $(element).html(board[i]);
-            }
-        },
-        error: function () {
-            alert("Field is already taken")
-        }
-    })
-    sleep(2);
-    checkGameEnd();
-}
-
-function checkGameEnd() {
-    $.ajax({
-        type: "GET",
-        url: "./lab6/check-game-end",
-        contentType: "application/json; charset=utf8",
-        async: false,
-        success: function (data) {
-            let gameEnd = data;
-            if (gameEnd === true) {
-                alert("Computer has won. try again")
-                clearBoard()
-            }
+            let message = "<br>" + data.stateHistoryMessage + "<br>"
+                + data.stackElementsMessage + "<br>" + data.message
+            document.getElementById("smOutput").innerHTML = message;
+            clearStack()
         },
         error: function () {
             console.log("Something went wrong!");
@@ -65,14 +21,14 @@ function checkGameEnd() {
     })
 }
 
-function clearBoard() {
+function clearStack() {
     $.ajax({
         type: "POST",
-        url: "./lab6/clear",
+        url: "./lab2/clear",
         contentType: "application/json; charset=utf8",
         async: false,
-        success: function () {
-            window.location.reload();
+        success: function (data) {
+            console.log("Stack cleared")
         },
         error: function () {
             console.log("Something went wrong!");
@@ -80,6 +36,23 @@ function clearBoard() {
     })
 }
 
-function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
+function checkRegexSolving() {
+    let word = document.getElementById("regexInput").value.trim()
+    let rq = {
+        request: word
+    }
+    $.ajax({
+        type: "POST",
+        url: "./lab2/regex",
+        contentType: "application/json; charset=utf8",
+        async: false,
+        data: JSON.stringify(rq),
+        success: function (data) {
+            let message = data
+            document.getElementById("regexOutput").innerHTML = message;
+        },
+        error: function () {
+            console.log("Something went wrong!");
+        }
+    })
 }
