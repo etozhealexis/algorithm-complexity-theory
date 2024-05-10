@@ -9,11 +9,7 @@ function getBoard() {
         contentType: "application/json; charset=utf8",
         async: false,
         success: function (data) {
-            let board = data.board;
-            for (let i = 0; i < 11; i++) {
-                element = '#' + (i + 1);
-                $(element).html(board[i]);
-            }
+            fillBoard(data)
         },
         error: function () {
             console.log("Something went wrong!");
@@ -32,11 +28,7 @@ function makeTurn(filedIndex) {
         async: false,
         data: JSON.stringify(turn),
         success: function (data) {
-            let board = data.board;
-            for (let i = 0; i < 11; i++) {
-                element = '#' + (i + 1);
-                $(element).html(board[i]);
-            }
+            fillBoard(data)
         },
         error: function () {
             alert("Field is already taken")
@@ -54,7 +46,7 @@ function checkGameEnd() {
         success: function (data) {
             let gameEnd = data;
             if (gameEnd === true) {
-                alert("Computer has won. Don't try again")
+                alert("Computer has won. Don't try it :)")
                 clearBoard()
             }
         },
@@ -81,4 +73,18 @@ function clearBoard() {
 
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+function fillBoard(data) {
+    let board = data.board;
+    for (let i = 0; i < 11; i++) {
+        element = '#' + (i + 1);
+        if (board[i] === "X") {
+            $(element).css({ 'color': 'red' });
+        }
+        if (board[i] === "O") {
+            $(element).css({ 'color': 'blue' });
+        }
+        $(element).html(board[i]);
+    }
 }

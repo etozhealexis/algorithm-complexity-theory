@@ -36,6 +36,7 @@ class Lab5ServiceTest {
         lab5Service.solveLab5(LabInputDTO.builder()
                 .request(request)
                 .build());
+        lab5Service.clearSet();
     }
 
     private static Stream<Arguments> provideSetArguments() {

@@ -15,7 +15,7 @@
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">ATC labs</a>
+        <a class="navbar-brand" href="#">ACT labs</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -48,23 +48,18 @@
     </div>
 </nav>
 
-<!--toDo: change style-->
-<div class="row">
-    <div class="col"></div>
-    <div class="col">
-        <form class="row g-3 needs-validation" novalidate>
-            <div class="col-md-4">
-                <label for="input" class="form-label">State Machine</label>
-                <input type="text" class="form-control" id="input" value="101" required>
-                <div id="output">
-                </div>
+<div class="container-lg">
+    <form class="row g-3 needs-validation" novalidate>
+        <div class="col-md-4">
+            <label for="input" class="form-label">Set of Colors</label>
+            <input type="text" class="form-control" id="input" value="s = {(red, blue), (red, blue), (white, yellow)}" required>
+            <div id="output">
             </div>
-            <div class="col-12">
-                <button class="btn btn-primary" type="button" onclick="checkSolving()">Check set</button>
-            </div>
-        </form>
-    </div>
-    <div class="col"></div>
+        </div>
+        <div class="col-12">
+            <button class="btn btn-primary" type="button" onclick="checkSolving()">Check set</button>
+        </div>
+    </form>
 </div>
 
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"
