@@ -30,6 +30,7 @@ public class Lab4ServiceImpl implements Lab4Service {
         fillVariableToCount(formulaVariablesWithDuplicates, variableToCount);
         Expression<String> formula = ExprParser.parse(formulaString);
         Expression<String> cnf = RuleSet.toCNF(formula);
+        // toDo: RuleSet.assign() - через это можно перебирать формулу
 
         long executionTime = System.currentTimeMillis() - executionStart;
 
