@@ -10,8 +10,8 @@ function checkSolving() {
         async: false,
         data: JSON.stringify(rq),
         success: function (data) {
-            let message = data.message + "<br>" + data.timeExecutionMessage
-            document.getElementById("output").innerHTML = message;
+            document.getElementById("output").innerHTML =
+                data.message + "<br>" + data.timeExecutionMessage + "<br>" + data.feasibilityMessage;
         },
         error: function () {
             console.log("Something went wrong!");

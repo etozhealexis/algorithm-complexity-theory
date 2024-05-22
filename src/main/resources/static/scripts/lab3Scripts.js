@@ -10,8 +10,7 @@ function checkSolving() {
         async: false,
         data: JSON.stringify(rq),
         success: function (data) {
-            let message = data
-            document.getElementById("output").innerHTML = message;
+            document.getElementById("output").innerHTML = data;
             clearGraph()
         },
         error: function () {

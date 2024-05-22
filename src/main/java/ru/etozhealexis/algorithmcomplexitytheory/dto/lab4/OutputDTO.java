@@ -12,4 +12,5 @@ import lombok.RequiredArgsConstructor;
 public class OutputDTO {
     private String message;
     private String timeExecutionMessage;
+    private String feasibilityMessage;
 }

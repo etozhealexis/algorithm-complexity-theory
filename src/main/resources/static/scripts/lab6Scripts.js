@@ -44,8 +44,7 @@ function checkGameEnd() {
         contentType: "application/json; charset=utf8",
         async: false,
         success: function (data) {
-            let gameEnd = data;
-            if (gameEnd === true) {
+            if (data === true) {
                 alert("Computer has won. Don't try it :)")
                 clearBoard()
             }

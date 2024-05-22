@@ -10,9 +10,8 @@ function checkStateMachineSolving() {
         async: false,
         data: JSON.stringify(rq),
         success: function (data) {
-            let message = "<br>" + data.stateHistoryMessage + "<br>"
-                + data.stackElementsMessage + "<br>" + data.message
-            document.getElementById("smOutput").innerHTML = message;
+            document.getElementById("smOutput").innerHTML =
+                "<br>" + data.stateHistoryMessage + "<br>" + data.stackElementsMessage + "<br>" + data.message;
             clearStack()
         },
         error: function () {
@@ -48,8 +47,7 @@ function checkRegexSolving() {
         async: false,
         data: JSON.stringify(rq),
         success: function (data) {
-            let message = data
-            document.getElementById("regexOutput").innerHTML = message;
+            document.getElementById("regexOutput").innerHTML = data;
         },
         error: function () {
             console.log("Something went wrong!");

@@ -10,8 +10,7 @@ function checkStateMachineSolving() {
         async: false,
         data: JSON.stringify(rq),
         success: function (data) {
-            let message = data;
-            document.getElementById("smOutput").innerHTML = message;
+            document.getElementById("smOutput").innerHTML = data;
         },
         error: function () {
             console.log("Something went wrong!");

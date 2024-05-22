@@ -30,7 +30,7 @@ public class Lab5ServiceImpl implements Lab5Service {
         this.set = new LinkedHashSet<>();
     }
 
-    // toDo: ничего не понятно, очень интересно
+    // toDo: ничего не понятно, очень интересно - подправить Танин код на питоне
     @Override
     public OutputDTO solveLab5(LabInputDTO request) {
         String setString = request.getRequest();
