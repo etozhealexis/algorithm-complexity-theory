@@ -1,7 +1,11 @@
 function checkSolving() {
-    let word = document.getElementById("input").value.trim()
+    let s = document.getElementById("input-s").value.trim()
+    let c = document.getElementById("input-c").value.trim()
+    let chi = document.getElementById("input-chi").value.trim()
     let rq = {
-        request: word
+        s: s,
+        c: c,
+        chi: chi
     }
     $.ajax({
         type: "POST",

@@ -38,7 +38,7 @@ public class Lab4ServiceImpl implements Lab4Service {
 
         boolean formulaIsEqualToCNF = formula.toString().equals(cnf.toString());
         boolean maxTwoDuplicatesOfEachVariable = maxTwoDuplicatesOfEachVariable(variableToCount.values());
-        String message = "";
+        String message = CommonConstant.VOID;
         if (formulaIsEqualToCNF && maxTwoDuplicatesOfEachVariable) {
             message = String.format(Lab4Constant.SUITABLE_FORMULA_MESSAGE, formulaString);
             log.info(message);

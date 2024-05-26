@@ -10,7 +10,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
 import org.springframework.beans.factory.annotation.Qualifier;
-import ru.etozhealexis.algorithmcomplexitytheory.dto.LabInputDTO;
+import ru.etozhealexis.algorithmcomplexitytheory.dto.lab5.InputDTO;
 import ru.etozhealexis.algorithmcomplexitytheory.service.lab5.Lab5ServiceImpl;
 
 import java.util.regex.Pattern;
@@ -31,19 +31,22 @@ class Lab5ServiceTest {
 
     @ParameterizedTest
     @MethodSource("provideSetArguments")
-    void checkSolving(String request) {
-        when(pattern.matcher(request)).thenReturn(Pattern.compile("\\([A-Za-z, ]*\\)").matcher(request));
-        lab5Service.solveLab5(LabInputDTO.builder()
-                .request(request)
+    void checkSolving(String s, String c, String chi) {
+        when(pattern.matcher(c)).thenReturn(Pattern.compile("\\{[\\d, ]*}").matcher(c));
+        lab5Service.solveLab5(InputDTO.builder()
+                .s(s)
+                .c(c)
+                .chi(chi)
                 .build());
-        lab5Service.clearSet();
+        lab5Service.clearMap();
     }
 
     private static Stream<Arguments> provideSetArguments() {
         return Stream.of(
-                Arguments.of("s = {(red, blue), (red, red), (white, yellow)}"),
-                Arguments.of("s = {(red, blue), (red, blue), (white, yellow)}"),
-                Arguments.of("s = {}")
+                Arguments.of("[1, 2, 3, 4]", "[{1, 2}, {2, 3}, {3, 4}]", "[0, 1, 0, 1]"),
+                Arguments.of("[1, 2, 3, 4]", "[{1, 2}, {2, 3}, {3, 3}]", "[0, 1, 0, 1]"),
+                Arguments.of("[1, 2, 3, 4]", "[{1, 2, 3, 4}, {1, 2, 4}, {1, 4}]", "[0, 1, 0, 1]"),
+                Arguments.of("[1, 2, 3, 4]", "[{1, 2, 3, 4}, {2, 4}, {1, 4}]", "[0, 1, 0, 1]")
         );
     }
 }

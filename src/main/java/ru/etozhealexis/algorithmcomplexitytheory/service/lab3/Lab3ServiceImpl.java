@@ -103,7 +103,6 @@ public class Lab3ServiceImpl implements Lab3Service {
         return entry.getKey();
     }
 
-    // toDo: замена на false на true не помогает, посмотреть в сторону составления transitionMap (мне пизда)
     private boolean checkDFA(State currentState,
                              Map<State, HashMap<Character, Character>> graph,
                              Set<State> visitedStates,
